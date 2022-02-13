@@ -31,6 +31,8 @@ public class Runner {
 	@BeforeSuite
 	public void initialSetup() {
 		
+		System.out.println("test");
+		
 	}
 
 	@BeforeMethod
