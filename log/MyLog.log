@@ -1,0 +1,18 @@
+[INFO ] 2022-02-19 10:23:27.515 [main] LoggingDemo - this is info loogger
+[DEBUG] 2022-02-19 10:23:27.517 [main] LoggingDemo - this is debug loogger
+[WARN ] 2022-02-19 10:23:27.518 [main] LoggingDemo - this is warn loogger
+[ERROR] 2022-02-19 10:23:27.518 [main] LoggingDemo - this is error loogger
+[FATAL] 2022-02-19 10:23:27.518 [main] LoggingDemo - this is fatal loogger
+[WARN ] 2022-02-19 10:24:17.539 [main] LoggingDemo - this is warn loogger
+[ERROR] 2022-02-19 10:24:17.541 [main] LoggingDemo - this is error loogger
+[FATAL] 2022-02-19 10:24:17.541 [main] LoggingDemo - this is fatal loogger
+[ERROR] 2022-02-19 10:24:59.142 [main] LoggingDemo - this is error loogger
+[FATAL] 2022-02-19 10:24:59.144 [main] LoggingDemo - this is fatal loogger
+[INFO ] 2022-02-19 10:36:27.797 [main] Login_POM - User has enetered userid
+[INFO ] 2022-02-19 10:36:27.941 [main] Login_POM - User has enetered password
+[INFO ] 2022-02-19 10:36:33.597 [main] Login_POM - Login is scuessfull
+[ERROR] 2022-02-19 10:39:35.285 [main] Login_POM - Login is failed
+[ERROR] 2022-02-19 10:44:30.568 [main] Login_POM - Login is failed
+[FATAL] 2022-02-19 10:44:30.571 [main] Login_POM - Login is complated blcoked
+[ERROR] 2022-02-19 11:29:53.786 [main] Login_POM - Login is failed
+[FATAL] 2022-02-19 11:29:53.824 [main] Login_POM - Login is complated blcoked

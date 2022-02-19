@@ -1,5 +1,7 @@
 package com.edusol.pom;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +14,7 @@ import com.edusol.base.CommonMethods;
 
 public class Login_POM extends CommonMethods {
 	WebDriver driver;
+	static Logger log=LogManager.getLogger(Login_POM.class);
 
 	// Login page Objects
 
@@ -33,16 +36,25 @@ public class Login_POM extends CommonMethods {
 		test.log(Status.INFO, "Login test has started");			
 		login.sendKeys("Admin");
 		test.log(Status.PASS, "User Entered");
+		log.info("User has enetered userid");
 		password.sendKeys("admin123");
+		log.info("User has enetered password");
 		login_btn.click();
 		String text=dashboardheader.getText();
-		if(text.equalsIgnoreCase("Dashboard")) {		
+		Assert.assertEquals(text, "Dashboard1");
 		
-		test.log(Status.PASS, "Login is Sucessfull"+test.addScreenCaptureFromPath(CommonMethods.getScreenshot(driver, "Test_Login")));
+		if(text.equalsIgnoreCase("Dashboard1")) {		
+		
+		test.log(Status.PASS, "Login sucess");
+		//test.log(Status.PASS, "Login is Sucessfull"+test.addScreenCaptureFromPath(CommonMethods.getScreenshot(driver, "Test_Login")));
+		log.info("Login is scuessfull");
 		
 	}
 		else {
-			test.log(Status.FAIL, "Login is Fail  "+test.addScreenCaptureFromPath(CommonMethods.getScreenshot(driver, "Test_Login")));
+			test.log(Status.FAIL, "Login fail");
+			//test.log(Status.FAIL, "Login is Fail  "+test.addScreenCaptureFromPath(CommonMethods.getScreenshot(driver, "Test_Login")));
+			log.error("Login is failed");
+			log.fatal("Login is complated blcoked");
 		}
 
 }

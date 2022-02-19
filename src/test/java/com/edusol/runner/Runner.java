@@ -23,7 +23,7 @@ import com.edusol.utilities.PropertyFileReader;
 
 public class Runner {
 
-	WebDriver driver;
+	public static WebDriver driver;
 	Login_POM loginPage;
 	Logout_POM logoutPage;
 	public static ExtentTest test;
@@ -49,7 +49,7 @@ public class Runner {
 
 	}
 
-	@Test(enabled = true)
+	@Test()
 	public void LoginLogout() {
 		test=ExtentReportGenerator.startTest("LoginLogout");		
 		loginPage = new Login_POM(driver);
@@ -59,6 +59,8 @@ public class Runner {
 		
 
 	}
+	
+	
 
 	@AfterMethod
 	public void tearDown() {

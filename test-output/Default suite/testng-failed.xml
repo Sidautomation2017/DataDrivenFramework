@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.edusol.runner.Runner">
+      <class name="com.edusol.runner.NewTest">
         <methods>
-          <include name="LoginLogout"/>
+          <include name="test1"/>
         </methods>
-      </class> <!-- com.edusol.runner.Runner -->
+      </class> <!-- com.edusol.runner.NewTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
