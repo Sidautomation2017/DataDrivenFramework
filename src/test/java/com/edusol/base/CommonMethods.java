@@ -13,6 +13,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.edusol.utilities.PropertyFileReader;
@@ -80,6 +81,17 @@ public static void jsClick(WebDriver driver, WebElement element) {
 		return path;
 	}
 	
+	public static void selectDropdown_index(WebElement element, int index) {
+		Select select = new Select(element);
+		select.selectByIndex(index);
+		
+	}
+	
+	public static void selectDropdown_value(WebElement element, String value) {
+		Select select = new Select(element);
+		select.selectByValue(value);
+		
+	}
 	
 	
 }
