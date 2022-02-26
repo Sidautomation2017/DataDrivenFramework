@@ -1,5 +1,7 @@
 package com.edusol.pom;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -64,45 +66,48 @@ public class Recruitment_POM {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void enterCandiadateDetails(ExtentTest test) throws InterruptedException {
+	public void enterCandiadateDetails(ExtentTest test, Map<String, String> data) throws InterruptedException {
+		
+		if(data.containsKey("Recruitment_Candidates") && data.get("Recruitment_Candidates").equalsIgnoreCase("yes")) {
+		
 		test.log(Status.INFO, "recruitmet started");
 		recruit.click();
 		
 		CommonMethods.explicitwaitforCLickable(driver, jobtitle);		
-		CommonMethods.selectDropdown_index(jobtitle, 0);
+		CommonMethods.selectDropdown_index(jobtitle, Integer.parseInt(data.get("JobTitle")));
 		CommonMethods.explicitwaitforCLickable(driver, vacancy);
-		CommonMethods.selectDropdown_index(vacancy, 2);		
+		CommonMethods.selectDropdown_index(vacancy,  Integer.parseInt(data.get("Vacancy")));		
 		CommonMethods.explicitwaitforCLickable(driver, hiringManager);
-		CommonMethods.selectDropdown_index(hiringManager, 1);	
+		CommonMethods.selectDropdown_index(hiringManager, Integer.parseInt(data.get("HiringManager")));	
 		CommonMethods.explicitwaitforCLickable(driver, status);
-		CommonMethods.selectDropdown_value(status, "HIRED");	
+		CommonMethods.selectDropdown_value(status, data.get("Staus"));	
 
 		candidatename.click();
-		candidatename.sendKeys("John Smith");
+		candidatename.sendKeys(data.get("CandidateName"));
 		Thread.sleep(2000);
 
 		keyword.click();
-		keyword.sendKeys("Selenium");
+		keyword.sendKeys(data.get("Keywords"));
 		Thread.sleep(2000);
 
-		WebElement Appmethod = driver.findElement(By.name("candidateSearch[modeOfApplication]"));
-		CommonMethods.selectDropdown_index(Appmethod, 0);
+		CommonMethods.selectDropdown_index(Appmethod, Integer.parseInt(data.get("Keywords")));
 
 		Fromdate.click();
-		Fromdate.sendKeys("2022-01-14");
+		Fromdate.sendKeys(data.get("FromDate"));
 		Fromdate.sendKeys(Keys.ENTER);
 		Thread.sleep(2000);
 
 		Todate.click();
-		Todate.sendKeys("2022-01-15");
+		Todate.sendKeys(data.get("ToDate"));
 		Todate.sendKeys(Keys.ENTER);
 		Thread.sleep(2000);
 
 		Search.click();
 		CommonMethods.explicitwaitforVisiblity(driver, resultTable);
 		Assert.assertTrue(resultTable.isDisplayed());
+		test.log(Status.PASS, "recruitmet search is sucessfull ");
 		
-
+		}
 	}
 
 }

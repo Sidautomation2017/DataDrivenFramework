@@ -14,10 +14,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -40,11 +42,12 @@ public class Runner {
 	Logout_POM logoutPage;
 	Recruitment_POM recruitment;
 	public static ExtentTest test;
+	ExcelReader reader;
 	 
 	@BeforeSuite
 	public void initialSetup() {
 		
-		System.out.println("test");
+		reader=new ExcelReader();
 		
 	}
 
@@ -57,40 +60,37 @@ public class Runner {
 		 
 	}
 	
+	
 	@DataProvider (name="dp")
 	public Object[][] dataSupplier() throws IOException{	
 		
-		   File file = new
-		  File("D:\\Automation Testing\\workspace\\DataDrivenFramework\\src\\test\\resources\\Data\\TestData.xlsx"
-		  ); FileInputStream fis = new FileInputStream(file);
+				  
+		  int lastRowNum = reader.getRowCount();	
 		  
-		  XSSFWorkbook wb = new XSSFWorkbook(fis); XSSFSheet sheet = wb.getSheetAt(0);
-		  wb.close(); int lastRowNum = sheet.getLastRowNum() ; int lastCellNum =
-		  sheet.getRow(0).getLastCellNum(); Object[][] obj = new Object[lastRowNum][1];
+		  Object[][] obj = new Object[lastRowNum-1][1];
 		  
-		  for (int i = 0; i < lastRowNum; i++) { Map<Object, Object> datamap = new
-		  HashMap<>(); for (int j = 0; j < lastCellNum; j++) {
-		  datamap.put(sheet.getRow(0).getCell(j).toString(),
-		  sheet.getRow(i+1).getCell(j).toString()); } obj[i][0] = datamap;
-		  
-		  } return obj;
-		 
+		  for (int i = 1; i < lastRowNum; i++) { 
+			  Map<String,String> datamap = new  HashMap<>(); 			
+		 datamap=reader.getExcelData(i);			
+			obj[i-1][0] = datamap;	 // [0][0]= tc1    , [1][0]=tc2, 
 		
 	  }
-				
+		  return obj;
+	}
 
-
+ 
 	@Test (dataProvider = "dp")
-	public void Login(Map<String, String> map) throws InterruptedException {		
+	public void testOrageHRM(Map<String, String> data) throws InterruptedException {		
 		
 		
-		  test=ExtentReportGenerator.startTest("Login"); 
+		  test=ExtentReportGenerator.startTest(data.get("TestCaseObjective")); 
 		  loginPage = new Login_POM(driver); 
-		  loginPage.login(test, map); 
-		  //recruitment=new  Recruitment_POM(driver);
-		 // recruitment.enterCandiadateDetails(test);
-		 
-	
+		  loginPage.login(test, data); 
+		  recruitment=new  Recruitment_POM(driver);
+		  recruitment.enterCandiadateDetails(test, data);
+		  logoutPage=new Logout_POM(driver);
+		  logoutPage.logout(test, data); 
+		  CommonMethods.softassert.assertAll("Observed Failure");
 		
 	}
 
@@ -99,11 +99,20 @@ public class Runner {
 
 	@AfterMethod
 	public void tearDown() {
-		driver.quit();		
+		driver.quit();	
+		
 	}
 
+	@AfterTest()
+	
+	public void afterTest()
+	{
+		
+	}
+	
 	@AfterSuite
 	public void afterSuite() {
+
 		ExtentReportGenerator.createExtentReport().flush();
 	}
 }

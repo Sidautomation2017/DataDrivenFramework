@@ -3,6 +3,7 @@ package com.edusol.listeners;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.Status;
 import com.edusol.base.CommonMethods;
 import com.edusol.runner.Runner;
 
@@ -20,7 +21,7 @@ public class TestListeners  implements ITestListener{
 	public void onTestFailure(ITestResult result) {
 	
 		System.out.println("******* OnTestfailure from Listener is called*****");
-		//CommonMethods.getScreenshot(Runner.driver, "Test_Login");
+		Runner.test.log(Status.FAIL,"Test failed"+ CommonMethods.getScreenshot(Runner.driver, "Test_Login"));
 		
 }
 

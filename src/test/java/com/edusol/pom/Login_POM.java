@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -44,7 +45,8 @@ public class Login_POM extends CommonMethods {
 		log.info("User has enetered password");
 		login_btn.click();
 		String text=dashboardheader.getText();
-		Assert.assertEquals(text, "Dashboard");
+		//Assert.assertEquals(text, "Dashboard2");		
+		CommonMethods.softassert.assertEquals(text, "Dashboard2");
 		
 		}
 }

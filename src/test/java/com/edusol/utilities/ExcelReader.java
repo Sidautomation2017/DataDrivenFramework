@@ -12,41 +12,48 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
-	
+
 // 	object [][] = {{[key=value],[key=value],...... },{2,3},{},{}}; 
 
 	static String homepath = System.getProperty("user.dir");
 	static XSSFSheet sheet;
+	File file;
+	static XSSFWorkbook workbook;
+	FileInputStream fis;
 
-	public static Object[][] getExcelData() {
-		HashMap<String, String> map=null;   // key value 
+	public ExcelReader() {
 
-		File file = new File(homepath + "//src//test//resources//Data//TestData.xlsx");
-		Object[][] exceldata=null;
+		file = new File(homepath + "//src//test//resources//Data//TestData.xlsx");
+
 		try {
-			FileInputStream fis = new FileInputStream(file);
-			XSSFWorkbook workbook = new XSSFWorkbook(fis);
-			int noOfSheets = workbook.getNumberOfSheets();
+			fis = new FileInputStream(file);
+			workbook = new XSSFWorkbook(fis);
 			sheet = workbook.getSheet("Sheet1");
-			int rowsCount = sheet.getPhysicalNumberOfRows();
-			int cellCount = sheet.getRow(0).getPhysicalNumberOfCells();
-			System.out.println("row count is -" + rowsCount);
-			System.out.println("cell count is -" + cellCount);
+			System.out.println("excelcel reader constructor is called ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			 exceldata= new Object[rowsCount - 1][cellCount]; // 2*2
-			for (int rowNum = 1; rowNum < rowsCount; rowNum++) {
-				new HashMap<String, String>();
-					for (int colNum = 0; colNum < cellCount; colNum++) {
-					String data = getvalueFromCell(rowNum, colNum);
-					map.put(getvalueFromCell(0,colNum), data);
-						}
-					exceldata[rowNum-1][0]=map;
+	}
+
+	public HashMap<String, String> getExcelData(int rowNum) {
+		HashMap<String, String> map = new HashMap<String, String>(); // key value
+	
+		Object[][] exceldata = null;
+		try {
+
+			for (int colNum = 0; colNum < getCellCount(); colNum++) {
+				String data = getvalueFromCell(rowNum, colNum);
+				map.put(getvalueFromCell(0, colNum), data);
 			}
+			// exceldata[rowNum-1][0]=map;
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return exceldata;
+		return map;
 
 	}
 
@@ -57,12 +64,24 @@ public class ExcelReader {
 			value = cell.getStringCellValue();
 		} else {
 			Double nvalue = cell.getNumericCellValue();
-			value = String.valueOf(nvalue);
+			int num = nvalue.intValue();
+			System.out.println("num" + num);
+
+			value = String.valueOf(num);
 		}
 
 		return value;
 
 	}
 
+	public int getRowCount() {
+		int rowcount = sheet.getPhysicalNumberOfRows();
+		return rowcount;
+	}
+
+	public static int getCellCount() {
+		int cellcount = sheet.getRow(0).getPhysicalNumberOfCells();
+		return cellcount;
+	}
 
 }

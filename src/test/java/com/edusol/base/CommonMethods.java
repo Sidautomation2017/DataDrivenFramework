@@ -15,11 +15,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import com.edusol.utilities.PropertyFileReader;
 
 public class CommonMethods {
 	
+	public static SoftAssert softassert=new SoftAssert();
 	
 	public static void main (String [] args) {
 		getCurrentDirectory();
@@ -92,6 +94,10 @@ public static void jsClick(WebDriver driver, WebElement element) {
 		select.selectByValue(value);
 		
 	}
+	
+
+	
+		
 	
 	
 }
