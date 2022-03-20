@@ -46,7 +46,7 @@ public class Login_POM extends CommonMethods {
 		login_btn.click();
 		String text=dashboardheader.getText();
 		//Assert.assertEquals(text, "Dashboard2");		
-		CommonMethods.softassert.assertEquals(text, "Dashboard2");
+		CommonMethods.softassert.assertEquals(text, "Dashboard");
 		
 		}
 }

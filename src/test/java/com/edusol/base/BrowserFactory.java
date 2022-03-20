@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class BrowserFactory {
 	public static String homepath = System.getProperty("user.dir");
 
@@ -16,23 +18,21 @@ public class BrowserFactory {
 		switch (browserName) {
 
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver",
-					homepath + "\\src\\test\\resources\\Drivers\\chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
 		case "firefox":
-			System.setProperty("webdriver.gecko.driver", homepath + "\\src\\test\\resources\\Drivers\\geckodriver.exe");
+			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 			break;
 			
 		case "edge":
-			System.setProperty("webdriver.edge.driver", homepath + "\\src\\test\\resources\\Drivers\\msedgedriver.exe");
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			break;
 			
 		default :
-		System.setProperty("webdriver.chrome.driver",
-				homepath + "\\src\\test\\resources\\Drivers\\chromedriver.exe");
+		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 				
 
